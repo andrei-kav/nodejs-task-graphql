@@ -1,11 +1,13 @@
-import {GraphQLFloat, GraphQLList, GraphQLObjectType, GraphQLString} from "graphql";
-import {UUIDType} from "./uuid.js";
-import {ProfileType} from "./profile.js";
-import {PostType} from "./post.js";
+import {
+    GraphQLFloat,
+    GraphQLList,
+    GraphQLObjectType,
+    GraphQLString
+} from "graphql";
+import {UUIDType} from "../uuid.js";
+import {ProfileType} from "../profile/type.js";
+import {PostType} from "../post/type.js";
 
-/**
- * types
- */
 export const UserType = new GraphQLObjectType({
     name: 'User',
     fields: () => ({
@@ -45,29 +47,4 @@ export const UserType = new GraphQLObjectType({
             },
         }
     })
-});
-
-/**
- * queries
- */
-const UserQuery = {
-    type: UserType,
-    args: { id: { type: UUIDType } },
-    async resolve(source, args, context) {
-        return context.prisma.user.findUnique({ where: { id: args.id } })
-    }
-}
-
-const UsersQuery = {
-    type: new GraphQLList(UserType),
-    async resolve(source, args, context) {
-        return context.prisma.user.findMany()
-    }
-}
-
-export const usersRelatedQueries = {
-    user: UserQuery,
-    users: UsersQuery
-}
-
-
+})

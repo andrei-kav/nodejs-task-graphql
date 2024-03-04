@@ -25,12 +25,14 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
       //   return { errors };
       // }
 
-      return graphql({
+      const { data, errors } = await graphql({
         source: query,
         schema: gqlRootSchema,
         variableValues: variables,
         contextValue: { prisma }
       })
+
+      return { data, errors }
     },
   });
 };
