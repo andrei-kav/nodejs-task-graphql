@@ -18,21 +18,19 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
     async handler(req) {
       const { query, variables } = req.body
 
-      // const queryDocument = parse(query)
-      // const errors = validate(gqlRootSchema, queryDocument, [depthLimit(5)])
-      // console.log('errors', errors)
-      // if (errors.length > 0) {
-      //   return { errors };
-      // }
+      const queryDocument = parse(query)
+      const errors = validate(gqlRootSchema, queryDocument, [depthLimit(5)])
+      console.log('errors', errors)
+      if (errors.length > 0) {
+        return { errors };
+      }
 
-      const { data, errors } = await graphql({
+      return graphql({
         source: query,
         schema: gqlRootSchema,
         variableValues: variables,
         contextValue: { prisma }
       })
-
-      return { data, errors }
     },
   });
 };
