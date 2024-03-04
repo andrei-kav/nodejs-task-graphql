@@ -1,3 +1,7 @@
+`npx prisma studio` - to look at what your DB contains
+`http://[::1]:8000/docs` - fastify docs; 8000 is the PORT value from .env variables
+`--timeout=0` - use debugger without timeout
+
 ## Assignment: Graphql
 ### Tasks:
 1. Add logic to the graphql endpoint: ./src/routes/graphql.  
