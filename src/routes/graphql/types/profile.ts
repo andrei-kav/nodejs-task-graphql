@@ -6,7 +6,7 @@ import {MemberType} from "./member-type.js";
 /**
  * types
  */
-const ProfileType = new GraphQLObjectType({
+export const ProfileType = new GraphQLObjectType({
     name: 'Profile',
     fields: () => ({
         id: { type: UUIDType },
