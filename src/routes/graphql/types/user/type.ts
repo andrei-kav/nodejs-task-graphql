@@ -38,9 +38,9 @@ export const UserType = new GraphQLObjectType({
         },
         subscribedToUser: {
             type: new GraphQLList(UserType),
-            async resolve(src, _, ctx) {
-                const results = await ctx.prisma.subscribersOnAuthors.findMany({
-                    where: { authorId: src.id },
+            async resolve(source, args, context) {
+                const results = await context.prisma.subscribersOnAuthors.findMany({
+                    where: { authorId: source.id },
                     select: { subscriber: true }
                 })
                 return results.map(result => result.subscriber)
